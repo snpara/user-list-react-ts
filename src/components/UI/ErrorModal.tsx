@@ -3,24 +3,31 @@ import Card from "./Card";
 
 import styles from "./ErrorModal.module.css";
 
-interface ErrorModalProps {
+export type Error = {
   title: string;
   message: string;
+};
+
+interface ErrorModalProps {
+  error: Error;
+  onConfirm: () => void;
 }
 
 const ErrorModal: React.FC<ErrorModalProps> = (props) => {
   return (
     <div>
-      <div className={styles.backdrop} />
+      <div className={styles.backdrop} onClick={props.onConfirm} />
       <Card className={styles.modal}>
         <header className={styles.header}>
-          <h2>{props.title}</h2>
+          <h2>{props.error.title}</h2>
         </header>
         <div className={styles.content}>
-          <p>{props.message}</p>
+          <p>{props.error.message}</p>
         </div>
         <footer className={styles.actions}>
-          <Button type="button">Okay</Button>
+          <Button type="button" onClick={props.onConfirm}>
+            Okay
+          </Button>
         </footer>
       </Card>
     </div>
